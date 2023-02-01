@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<style>
+.list{
+    list-style: none;
+    padding: 0;
+    margin: 1%;
+
+}
+.list li{
+    display: flex;
+    width: 100%;
+    padding: .2rem;
+    border: 1px solid black;
+}
+li{
+    width: 5em;
+    height: 5em;
+}
+h5,p{
+    margin: 0;
+    padding: .1rem;
+}
+form{
+    margin: 1rem;
+}
+form button,input[type="submit"]{
+    border: none;
+    background-color: rgba(227, 35, 35, 0.226);
+    padding: 0.1rem .2rem;
+    border-radius: .2rem;
+    margin: 0 .2rem;
+}
+</style>
+
+<body>
+
+    <form action="/" method="POST">
+        <input type="text" name="first" placeholder="name">
+        <input type="text" name="location" placeholder="City/State/Country">
+        <input type="submit" value="Search" name="Search">
+        </form>
+        <form action="/" method="POST">
+        <select name="sort">
+            <option value="asc">asc</option>
+            <option value="dsc">dsc</option>
+            <input type="submit" value="Sort" name="Sort">
+        </form>
+
+    <ol class="list">
+        {{#each resp.results}}
+            <li>
+                <img src = {{this.picture.thumbnail}}>
+                <div>
+                    <h5>{{this.name.first}} {{this.name.last}}</h5>
+                    <p>{{this.location.city}}, {{this.location.state}}, {{this.location.city}}</p>
+                    <p>{{this.login.username}}</p>
+                </div>
+            </li>
+        
+        {{/each}}
+    </ol>
+
+
+
+</body>
+
+</html>
