@@ -173,7 +173,6 @@ const server = http.createServer((req, res) => {
             });
         }
     }
-
 );
 
 function compare(a, b) {
@@ -195,7 +194,6 @@ function compare(a, b) {
 function dscComp(a, b) {
     return -1 * compare(a, b);
 }
-
 
 server.listen(port, hostname, () => {
     console.log(`Server running at http://${hostname}:${port}/`);
