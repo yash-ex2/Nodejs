@@ -21,33 +21,34 @@ app.use(body_parser_1.default.urlencoded({ extended: false }));
 app.use(body_parser_1.default.json());
 app.set("view engine", "hbs");
 app.set("views", path_1.default.join(__dirname, "views"));
-const url = 'https://randomuser.me/api/?results=50';
+const url = 'https://127.0.0.1:5500';
 app.get("/", (req, res) => {
     let fileData = (readDataToFile().toString());
     res.render("index", { resp: JSON.parse(fileData) });
 });
-// app.post("/",(req,res)=>{
-//     let name = req.body.first
-//     let loc = req.body.location
-//     let sort = req.body.sort;
-//     let data = readDataToFile();
-//     if(req.body.Sort==='Sort'){
-//         if(sort=='asc')JSON.parse(data.toString()).results = JSON.parse(data.toString()).results.sort(compare);
-//         else JSON.parse(data.toString()).results = JSON.parse(data.toString()).results.sort(dscComp);
-//         res.render("index",{resp:(data)});
-//     }else{
-//         let searchData=JSON.parse(data.toString());
-//         for(let x of JSON.parse(data.toString()).results){
-//                 if (
-//                     ( x.name.first.toLowerCase().includes(name) || x.name.last.toLowerCase().includes(name) ) &&
-//                     ( x.location.city.includes(loc) || x.location.state.includes(loc) ||x.location.country.includes(loc) )
-//                 ){
-//                     searchData.results.push(x);
-//                 }
-//         }
-//         res.render("index",{resp:searchData});
-//     }
-// });
+app.post("/", (req, res) => {
+    let name = req.body.first;
+    let loc = req.body.location;
+    let sort = req.body.sort;
+    let data = readDataToFile();
+    if (req.body.Sort === 'Sort') {
+        if (sort == 'asc')
+            JSON.parse(data.toString()).results = JSON.parse(data.toString()).results.sort(compare);
+        else
+            JSON.parse(data.toString()).results = JSON.parse(data.toString()).results.sort(dscComp);
+        res.render("index", { resp: (data) });
+    }
+    else {
+        let searchData = JSON.parse(data.toString());
+        for (let x of JSON.parse(data.toString()).results) {
+            if ((x.name.first.toLowerCase().includes(name) || x.name.last.toLowerCase().includes(name)) &&
+                (x.location.city.includes(loc) || x.location.state.includes(loc) || x.location.country.includes(loc))) {
+                searchData.results.push(x);
+            }
+        }
+        res.render("index", { resp: searchData });
+    }
+});
 function compare(a, b) {
     if (a.name.first < b.name.first) {
         return -1;
